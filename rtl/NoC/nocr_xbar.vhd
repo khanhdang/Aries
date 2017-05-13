@@ -1,49 +1,49 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_nocr_xbar is
+entity nocr_xbar is
 
   port (
     data_in0 : in std_logic_vector(33 downto 0);  -- Data from inport 0
-    dir_in0  : in std_logic_vector(1 downto 0);   -- Direction from inport 0 
+    dir_in0  : in std_logic_vector(1 downto 0);   -- Direction from inport 0
 
-    data_in1 : in std_logic_vector(33 downto 0);  -- Data from inport 1 
-    dir_in1  : in std_logic_vector(1 downto 0);   -- Direction from inport 1  
+    data_in1 : in std_logic_vector(33 downto 0);  -- Data from inport 1
+    dir_in1  : in std_logic_vector(1 downto 0);   -- Direction from inport 1
 
-    data_in2 : in std_logic_vector(33 downto 0);  -- Data from inport 2 
-    dir_in2  : in std_logic_vector(1 downto 0);   -- Direction from inport 2  
+    data_in2 : in std_logic_vector(33 downto 0);  -- Data from inport 2
+    dir_in2  : in std_logic_vector(1 downto 0);   -- Direction from inport 2
 
-    data_in3 : in std_logic_vector(33 downto 0);  -- Data from inport 3 
-    dir_in3  : in std_logic_vector(1 downto 0);   -- Direction from inport 3  
+    data_in3 : in std_logic_vector(33 downto 0);  -- Data from inport 3
+    dir_in3  : in std_logic_vector(1 downto 0);   -- Direction from inport 3
 
-    data_in4 : in std_logic_vector(33 downto 0);  -- Data from inport 4 
-    dir_in4  : in std_logic_vector(1 downto 0);   -- Direction from inport 4  
+    data_in4 : in std_logic_vector(33 downto 0);  -- Data from inport 4
+    dir_in4  : in std_logic_vector(1 downto 0);   -- Direction from inport 4
 
-    data_out0 : out std_logic_vector(33 downto 0);  -- Data to outport 0  
-    dir_out0  : in  std_logic_vector(1 downto 0);  -- Direction from outport 0   
+    data_out0 : out std_logic_vector(33 downto 0);  -- Data to outport 0
+    dir_out0  : in  std_logic_vector(1 downto 0);  -- Direction from outport 0
 
-    data_out1 : out std_logic_vector(33 downto 0);  -- Data to outport 1   
-    dir_out1  : in  std_logic_vector(1 downto 0);  -- Direction from outport 1    
+    data_out1 : out std_logic_vector(33 downto 0);  -- Data to outport 1
+    dir_out1  : in  std_logic_vector(1 downto 0);  -- Direction from outport 1
 
-    data_out2 : out std_logic_vector(33 downto 0);  -- Data to outport 2   
-    dir_out2  : in  std_logic_vector(1 downto 0);  -- Direction from outport 2    
+    data_out2 : out std_logic_vector(33 downto 0);  -- Data to outport 2
+    dir_out2  : in  std_logic_vector(1 downto 0);  -- Direction from outport 2
 
-    data_out3 : out std_logic_vector(33 downto 0);  -- Data to outport 3   
-    dir_out3  : in  std_logic_vector(1 downto 0);  -- Direction from outport 3    
+    data_out3 : out std_logic_vector(33 downto 0);  -- Data to outport 3
+    dir_out3  : in  std_logic_vector(1 downto 0);  -- Direction from outport 3
 
-    data_out4 : out std_logic_vector(33 downto 0);  -- Data to outport 4   
-    dir_out4  : in  std_logic_vector(1 downto 0));  -- Direction from outport 4    
+    data_out4 : out std_logic_vector(33 downto 0);  -- Data to outport 4
+    dir_out4  : in  std_logic_vector(1 downto 0));  -- Direction from outport 4
 
-end sislab_nocr_xbar;
+end nocr_xbar;
 
-architecture rtl of sislab_nocr_xbar is
+architecture rtl of nocr_xbar is
 
   signal data_0_1, data_0_2, data_0_3, data_0_4 : std_logic_vector(33 downto 0);
   signal data_1_0, data_1_2, data_1_3, data_1_4 : std_logic_vector(33 downto 0);
   signal data_2_1, data_2_0, data_2_3, data_2_4 : std_logic_vector(33 downto 0);
   signal data_3_1, data_3_2, data_3_0, data_3_4 : std_logic_vector(33 downto 0);
   signal data_4_1, data_4_2, data_4_3, data_4_0 : std_logic_vector(33 downto 0);
-  
+
 begin  -- rtl
 
   --u0 : ENTITY work.crossbar
@@ -121,7 +121,7 @@ begin  -- rtl
         data_0_3 <= data_in0;
       when others => null;
     end case;
-    
+
   end process;
 
   D2 : process(dir_in1, data_in1)
@@ -149,7 +149,7 @@ begin  -- rtl
         data_1_3 <= data_in1;
       when others => null;
     end case;
-    
+
   end process;
   D3 : process(dir_in2, data_in2)
   begin
@@ -176,7 +176,7 @@ begin  -- rtl
         data_2_3 <= data_in2;
       when others => null;
     end case;
-    
+
   end process;
   D4 : process(dir_in3, data_in3)
   begin

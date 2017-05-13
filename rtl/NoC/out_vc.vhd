@@ -1,15 +1,15 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_out_vc is
+entity out_vc is
   port (
     vc_in  : in std_logic_vector(1 downto 0);  -- Select virtual channel
     dir_in : in std_logic_vector(1 downto 0);  -- Select direction of data
 
     data_in0 : in std_logic_vector(33 downto 0);  -- Data from crossbar vc0 to outport
-    data_in1 : in std_logic_vector(33 downto 0);  -- Data from crossbar vc1 to outport  
+    data_in1 : in std_logic_vector(33 downto 0);  -- Data from crossbar vc1 to outport
 
-    send_in0 : in std_logic_vector(1 downto 0);  -- send  from port 0  
+    send_in0 : in std_logic_vector(1 downto 0);  -- send  from port 0
     send_in1 : in std_logic_vector(1 downto 0);  -- send from port 1
     send_in2 : in std_logic_vector(1 downto 0);  -- send from port 2
     send_in3 : in std_logic_vector(1 downto 0);  -- send from port 3
@@ -25,8 +25,8 @@ entity sislab_out_vc is
     send_out   : out std_logic_vector(1 downto 0);  -- send out (handshake signal)
     accept_out : in  std_logic_vector(1 downto 0)  -- accept out (handshake signal)
     );
-end sislab_out_vc;
-architecture rtl of sislab_out_vc is
+end out_vc;
+architecture rtl of out_vc is
 
 begin
   -- @brief: Select data_out from data_in_vc

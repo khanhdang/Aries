@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_nocr_inport is
+entity nocr_inport is
 
   port (
     clk       : in  std_logic;          -- System clock
@@ -31,9 +31,9 @@ entity sislab_nocr_inport is
     data_out1 : out std_logic_vector(33 downto 0);  -- Data out to crossbar 1
     dir_out1  : out std_logic_vector(1 downto 0));  -- Select outport send to crossbar 1
 
-end sislab_nocr_inport;
+end nocr_inport;
 
-architecture rtl of sislab_nocr_inport is
+architecture rtl of nocr_inport is
 
   signal en_store_data_net : std_logic_vector(1 downto 0);
   signal data_net          : std_logic_vector(33 downto 0);
@@ -48,7 +48,7 @@ architecture rtl of sislab_nocr_inport is
   signal accept_out    : std_logic_vector(1 downto 0);
   signal lock_out      : std_logic_vector(1 downto 0);
 
-  component sislab_in_arb
+  component in_arb
     port (
       clk               : in  std_logic;
       en                : in  std_logic;
@@ -68,7 +68,7 @@ architecture rtl of sislab_nocr_inport is
 
   end component;
 
-  component sislab_in_vc
+  component in_vc
 
     port (
       clk               : in  std_logic;
@@ -82,7 +82,7 @@ architecture rtl of sislab_nocr_inport is
 
   end component;
 
-  component sislab_in_preprc
+  component in_preprc
     port (
       data_in  : in  std_logic_vector(33 downto 0);
       data_net : out std_logic_vector(33 downto 0);
@@ -98,8 +98,8 @@ begin  -- rtl
 
 
 
-  sislab_in_arb_inst : sislab_in_arb
-    
+  in_arb_inst : in_arb
+
     port map (
       clk               => clk,
       en                => en,
@@ -117,8 +117,8 @@ begin  -- rtl
       send_out          => send_out,
       accept_in         => accept_in);
 
-  sislab_in_vc_inst : sislab_in_vc
-    
+  in_vc_inst : in_vc
+
     port map (
       clk               => clk,
       en                => en,
@@ -129,8 +129,8 @@ begin  -- rtl
       data_out0         => data_out0,
       data_out1         => data_out1);
 
-  sislab_in_preprc_inst : sislab_in_preprc
-    
+  in_preprc_inst : in_preprc
+
     port map (
       data_in  => data_in,
       data_net => data_net,
@@ -140,7 +140,7 @@ begin  -- rtl
 
   -- purpose: demux to route send signal
   -- type   : combinational
-  -- outputs: 
+  -- outputs:
   handshake_vc0 : process (lock_out(0), send_out(0), dir_out0_temp, accept_out0(0), accept_out1(0), accept_out2(0), accept_out3(0))
   begin  -- PROCESS handshake_vc0
     case dir_out0_temp is
@@ -200,7 +200,7 @@ begin  -- rtl
 
   -- purpose: demux to route send signal
   -- type   : combinational
-  -- outputs: 
+  -- outputs:
   handshake_vc1 : process (lock_out(1), send_out(1), dir_out1_temp , accept_out0(1), accept_out1(1), accept_out2(1), accept_out3(1))
   begin  -- PROCESS handshake_vc1
     case dir_out1_temp is

@@ -1,8 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_in_arb is
-  
+entity in_arb is
+
   port (
     clk               : in  std_logic;
     en                : in  std_logic;
@@ -20,16 +20,16 @@ entity sislab_in_arb is
     send_out          : out std_logic_vector(1 downto 0);
     accept_in         : out std_logic_vector(1 downto 0));
 
-end sislab_in_arb;
+end in_arb;
 
-architecture rtl of sislab_in_arb is
+architecture rtl of in_arb is
 
   signal wire_push      : std_logic_vector(1 downto 0);
   signal wire_pop       : std_logic_vector(1 downto 0);
   signal buffer_state   : std_logic_vector(1 downto 0);
   signal wire_accept_in : std_logic_vector(1 downto 0);
   signal wire_send_out  : std_logic_vector(1 downto 0);
-  
+
 begin  -- rtl
   wire_accept_in    <= not buffer_state;
   wire_send_out     <= buffer_state;
@@ -43,8 +43,8 @@ begin  -- rtl
   -- type   : sequential
   -- inputs : clk, rst_n, push, pop
   -- outputs: buffer_state
-  sislab_buffer_state : process (clk, rst_n)
-  begin  -- PROCESS sislab_buffer_state
+  buffer_state : process (clk, rst_n)
+  begin  -- PROCESS buffer_state
     if rst_n = '0' then                 -- asynchronous reset (active low)
       buffer_state <= (others => '0');
     elsif clk'event and clk = '1' then  -- rising clock edge
@@ -58,7 +58,7 @@ begin  -- rtl
         end loop;  -- i
       end if;
     end if;
-  end process sislab_buffer_state;
+  end process buffer_state;
 
   -- purpose: Update dir bits
   -- type   : sequential
@@ -83,7 +83,7 @@ begin  -- rtl
   -- purpose: lock signal
   -- type   : sequential
   -- inputs : clk, rst_n
-  -- outputs: 
+  -- outputs:
   lock_signal : process (clk, rst_n)
   begin  -- PROCESS lock
     if rst_n = '0' then                 -- asynchronous reset (active low)

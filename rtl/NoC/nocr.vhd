@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_nocr is
+entity nocr is
   port(
     clk           : in  std_logic;      -- system clock
     en            : in  std_logic;      -- system enable
@@ -52,10 +52,10 @@ entity sislab_nocr is
     ip_send_out   : out std_logic_vector(1 downto 0);  -- send_out from ip port.
     ip_accept_out : in  std_logic_vector(1 downto 0)  -- accept_out to ip port.
     );
-end sislab_nocr;
+end nocr;
 
-architecture rtl of sislab_nocr is
-  component sislab_nocr_inport is
+architecture rtl of nocr is
+  component nocr_inport is
 
     port (
       clk         : in std_logic;
@@ -84,43 +84,43 @@ architecture rtl of sislab_nocr is
 
   end component;
 
-  component sislab_nocr_xbar is
+  component nocr_xbar is
 
     port (
       data_in0 : in std_logic_vector(33 downto 0);  -- data from inport 0
-      dir_in0  : in std_logic_vector(1 downto 0);   -- direction from inport 0 
+      dir_in0  : in std_logic_vector(1 downto 0);   -- direction from inport 0
 
-      data_in1 : in std_logic_vector(33 downto 0);  -- data from inport 1 
-      dir_in1  : in std_logic_vector(1 downto 0);  -- direction from inport 1  
+      data_in1 : in std_logic_vector(33 downto 0);  -- data from inport 1
+      dir_in1  : in std_logic_vector(1 downto 0);  -- direction from inport 1
 
-      data_in2 : in std_logic_vector(33 downto 0);  -- data from inport 2 
-      dir_in2  : in std_logic_vector(1 downto 0);  -- direction from inport 2  
+      data_in2 : in std_logic_vector(33 downto 0);  -- data from inport 2
+      dir_in2  : in std_logic_vector(1 downto 0);  -- direction from inport 2
 
-      data_in3 : in std_logic_vector(33 downto 0);  -- data from inport 3 
-      dir_in3  : in std_logic_vector(1 downto 0);  -- direction from inport 3  
+      data_in3 : in std_logic_vector(33 downto 0);  -- data from inport 3
+      dir_in3  : in std_logic_vector(1 downto 0);  -- direction from inport 3
 
-      data_in4 : in std_logic_vector(33 downto 0);  -- data from inport 4 
-      dir_in4  : in std_logic_vector(1 downto 0);  -- direction from inport 4  
+      data_in4 : in std_logic_vector(33 downto 0);  -- data from inport 4
+      dir_in4  : in std_logic_vector(1 downto 0);  -- direction from inport 4
 
-      data_out0 : out std_logic_vector(33 downto 0);  -- data to outport 0  
-      dir_out0  : in  std_logic_vector(1 downto 0);  -- direction from outport 0   
+      data_out0 : out std_logic_vector(33 downto 0);  -- data to outport 0
+      dir_out0  : in  std_logic_vector(1 downto 0);  -- direction from outport 0
 
-      data_out1 : out std_logic_vector(33 downto 0);  -- data to outport 1   
-      dir_out1  : in  std_logic_vector(1 downto 0);  -- direction from outport 1    
+      data_out1 : out std_logic_vector(33 downto 0);  -- data to outport 1
+      dir_out1  : in  std_logic_vector(1 downto 0);  -- direction from outport 1
 
-      data_out2 : out std_logic_vector(33 downto 0);  -- data to outport 2   
-      dir_out2  : in  std_logic_vector(1 downto 0);  -- direction from outport 2    
+      data_out2 : out std_logic_vector(33 downto 0);  -- data to outport 2
+      dir_out2  : in  std_logic_vector(1 downto 0);  -- direction from outport 2
 
-      data_out3 : out std_logic_vector(33 downto 0);  -- data to outport 3   
-      dir_out3  : in  std_logic_vector(1 downto 0);  -- direction from outport 3    
+      data_out3 : out std_logic_vector(33 downto 0);  -- data to outport 3
+      dir_out3  : in  std_logic_vector(1 downto 0);  -- direction from outport 3
 
-      data_out4 : out std_logic_vector(33 downto 0);  -- data to outport 4   
-      dir_out4  : in  std_logic_vector(1 downto 0));  -- direction from outport 4    
+      data_out4 : out std_logic_vector(33 downto 0);  -- data to outport 4
+      dir_out4  : in  std_logic_vector(1 downto 0));  -- direction from outport 4
 
   end component;
 
-  component sislab_nocr_outport is
-    
+  component nocr_outport is
+
     port (
       clk   : in std_logic;             -- system clock
       en    : in std_logic;             -- system enable
@@ -132,9 +132,9 @@ architecture rtl of sislab_nocr is
       send_in3 : in std_logic_vector(1 downto 0);  -- send signal from port 3
 
       lock_in0 : in std_logic_vector(1 downto 0);  -- lock send signal from port 0
-      lock_in1 : in std_logic_vector(1 downto 0);  -- lock send signal from port 1 
-      lock_in2 : in std_logic_vector(1 downto 0);  -- lock send signal from port 2   
-      lock_in3 : in std_logic_vector(1 downto 0);  -- lock send signal from port 3  
+      lock_in1 : in std_logic_vector(1 downto 0);  -- lock send signal from port 1
+      lock_in2 : in std_logic_vector(1 downto 0);  -- lock send signal from port 2
+      lock_in3 : in std_logic_vector(1 downto 0);  -- lock send signal from port 3
 
       data_in0 : in std_logic_vector(33 downto 0);  -- data_in from crossbar 0
       data_in1 : in std_logic_vector(33 downto 0);  -- data_in from crossbar 1
@@ -355,7 +355,7 @@ architecture rtl of sislab_nocr is
   signal ip_o_dir_in1    : std_logic_vector(1 downto 0);
 begin
   -- @brief: map inport from north port
-  n_i_sislab_nocr_inport_inst : sislab_nocr_inport
+  n_i_nocr_inport_inst : nocr_inport
     port map(
       clk         => clk,
       en          => en,
@@ -390,7 +390,7 @@ begin
   n_i_accept_out2 <= s_o_accept_in0;
   n_i_accept_out3 <= w_o_accept_in0;
   -- @brief: map inport from east port
-  e_i_sislab_nocr_inport_inst : sislab_nocr_inport
+  e_i_nocr_inport_inst : nocr_inport
     port map(
       clk         => clk,
       en          => en,
@@ -414,7 +414,7 @@ begin
       dir_out0    => e_i_dir_out0,
       data_out1   => e_i_data_out1,
       dir_out1    => e_i_dir_out1
-      );  
+      );
   -- map interface
   e_i_data_in     <= e_data_in;
   e_i_send_in     <= e_send_in;
@@ -425,7 +425,7 @@ begin
   e_i_accept_out2 <= s_o_accept_in1;
   e_i_accept_out3 <= w_o_accept_in1;
   -- @brief: map inport from south port
-  s_i_sislab_nocr_inport_inst : sislab_nocr_inport
+  s_i_nocr_inport_inst : nocr_inport
     port map(
       clk         => clk,
       en          => en,
@@ -449,7 +449,7 @@ begin
       dir_out0    => s_i_dir_out0,
       data_out1   => s_i_data_out1,
       dir_out1    => s_i_dir_out1
-      ); 
+      );
   -- map interface
   s_i_data_in     <= s_data_in;
   s_i_send_in     <= s_send_in;
@@ -460,7 +460,7 @@ begin
   s_i_accept_out1 <= e_o_accept_in2;
   s_i_accept_out3 <= w_o_accept_in2;
   -- @brief: map inport from west port
-  w_i_sislab_nocr_inport_inst : sislab_nocr_inport
+  w_i_nocr_inport_inst : nocr_inport
     port map(
       clk         => clk,
       en          => en,
@@ -495,7 +495,7 @@ begin
   w_i_accept_out1 <= e_o_accept_in3;
   w_i_accept_out2 <= s_o_accept_in3;
   -- @brief: map inport from ip port
-  ip_i_sislab_nocr_inport_inst : sislab_nocr_inport
+  ip_i_nocr_inport_inst : nocr_inport
     port map(
       clk         => clk,
       en          => en,
@@ -519,7 +519,7 @@ begin
       dir_out0    => ip_i_dir_out0,
       data_out1   => ip_i_data_out1,
       dir_out1    => ip_i_dir_out1
-      );  
+      );
   -- map interface
   ip_i_data_in     <= ip_data_in;
   ip_i_send_in     <= ip_send_in;
@@ -530,7 +530,7 @@ begin
   ip_i_accept_out2 <= s_o_accept_in2;
   ip_i_accept_out3 <= w_o_accept_in3;
   -- @brief: map outport of north port
-  n_o_sislab_nocr_outport_inst : sislab_nocr_outport
+  n_o_nocr_outport_inst : nocr_outport
     port map(
       clk        => clk,
       en         => en,
@@ -571,7 +571,7 @@ begin
   n_o_lock_in3 <= w_i_lock_out0;
 
   -- @brief: map outport of east port
-  e_o_sislab_nocr_outport_inst : sislab_nocr_outport
+  e_o_nocr_outport_inst : nocr_outport
     port map(
       clk        => clk,
       en         => en,
@@ -612,7 +612,7 @@ begin
   e_o_lock_in3 <= w_i_lock_out1;
 
   -- @brief: map outport of south port
-  s_o_sislab_nocr_outport_inst : sislab_nocr_outport
+  s_o_nocr_outport_inst : nocr_outport
     port map(
       clk        => clk,
       en         => en,
@@ -652,7 +652,7 @@ begin
   s_o_lock_in1 <= e_i_lock_out2;
   s_o_lock_in3 <= w_i_lock_out2;
   -- @brief: map outport of west port
-  w_o_sislab_nocr_outport_inst : sislab_nocr_outport
+  w_o_nocr_outport_inst : nocr_outport
     port map(
       clk        => clk,
       en         => en,
@@ -692,7 +692,7 @@ begin
   w_o_lock_in1 <= e_i_lock_out3;
   w_o_lock_in2 <= s_i_lock_out3;
   -- @brief: map outport of ip port
-  ip_o_sislab_nocr_outport_inst : sislab_nocr_outport
+  ip_o_nocr_outport_inst : nocr_outport
     port map(
       clk        => clk,
       en         => en,
@@ -716,7 +716,7 @@ begin
       data_out   => ip_o_data_out,
       send_out   => ip_o_send_out,
       accept_out => ip_o_accept_out
-      ); 
+      );
   -- map interface
   ip_data_out     <= ip_o_data_out;
   ip_send_out     <= ip_o_send_out;
@@ -732,7 +732,7 @@ begin
   ip_o_lock_in2 <= s_i_lock_out2;
   ip_o_lock_in3 <= w_i_lock_out3;
   -- @brief: crossbar for virtual channel 0
-  sislab_noc_xbar_inst_vc0 : sislab_nocr_xbar
+  noc_xbar_inst_vc0 : nocr_xbar
     port map(
       data_in0 => n_i_data_out0,
       dir_in0  => n_i_dir_out0,
@@ -766,7 +766,7 @@ begin
       );
 
   -- @brief: crossbar for virtual channel 1
-  sislab_noc_xbar_inst_vc1 : sislab_nocr_xbar
+  noc_xbar_inst_vc1 : nocr_xbar
     port map(
       data_in0 => n_i_data_out1,
       dir_in0  => n_i_dir_out1,

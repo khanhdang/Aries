@@ -1,8 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_nocr_outport is
-  
+entity nocr_outport is
+
   port (
     clk   : in std_logic;               -- System clock
     en    : in std_logic;               -- System Enable
@@ -14,9 +14,9 @@ entity sislab_nocr_outport is
     send_in3 : in std_logic_vector(1 downto 0);  -- send signal from port 3
 
     lock_in0 : in std_logic_vector(1 downto 0);  -- Lock send signal from port 0
-    lock_in1 : in std_logic_vector(1 downto 0);  -- Lock send signal from port 1 
-    lock_in2 : in std_logic_vector(1 downto 0);  -- Lock send signal from port 2   
-    lock_in3 : in std_logic_vector(1 downto 0);  -- Lock send signal from port 3  
+    lock_in1 : in std_logic_vector(1 downto 0);  -- Lock send signal from port 1
+    lock_in2 : in std_logic_vector(1 downto 0);  -- Lock send signal from port 2
+    lock_in3 : in std_logic_vector(1 downto 0);  -- Lock send signal from port 3
 
     data_in0 : in std_logic_vector(33 downto 0);  -- Data_in from crossbar 0
     data_in1 : in std_logic_vector(33 downto 0);  -- data_in from crossbar 1
@@ -34,10 +34,10 @@ entity sislab_nocr_outport is
     accept_out : in  std_logic_vector(1 downto 0)  -- send out to next router/IP.
     );
 
-end sislab_nocr_outport;
+end nocr_outport;
 
-architecture rtl of sislab_nocr_outport is
-  component sislab_out_arb is
+architecture rtl of nocr_outport is
+  component out_arb is
     port (
       clk      : in  std_logic;                     -- System clock
       rst_n    : in  std_logic;                     -- Reset, negative active
@@ -56,15 +56,15 @@ architecture rtl of sislab_nocr_outport is
 
   end component;
 
-  component sislab_out_vc is
+  component out_vc is
     port (
       vc_in  : in std_logic_vector(1 downto 0);  -- Select virtual channel
       dir_in : in std_logic_vector(1 downto 0);  -- Select direction of data
 
       data_in0 : in std_logic_vector(33 downto 0);  -- Data from crossbar vc0 to outport
-      data_in1 : in std_logic_vector(33 downto 0);  -- Data from crossbar vc1 to outport  
+      data_in1 : in std_logic_vector(33 downto 0);  -- Data from crossbar vc1 to outport
 
-      send_in0 : in std_logic_vector(1 downto 0);  -- send  from port 0  
+      send_in0 : in std_logic_vector(1 downto 0);  -- send  from port 0
       send_in1 : in std_logic_vector(1 downto 0);  -- send from port 1
       send_in2 : in std_logic_vector(1 downto 0);  -- send from port 2
       send_in3 : in std_logic_vector(1 downto 0);  -- send from port 3
@@ -85,11 +85,11 @@ architecture rtl of sislab_nocr_outport is
 
   signal vc_in  : std_logic_vector(1 downto 0);
   signal dir_in : std_logic_vector(1 downto 0);
-  
-  
+
+
 begin
 
-  sislab_out_arb_inst : sislab_out_arb
+  out_arb_inst : out_arb
     port map(
       clk   => clk,
       en    => en,
@@ -108,7 +108,7 @@ begin
       vc_in  => vc_in,
       dir_in => dir_in
       );
-  sislab_out_vc_inst : sislab_out_vc
+  out_vc_inst : out_vc
     port map(
       vc_in  => vc_in,
       dir_in => dir_in,

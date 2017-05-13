@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_in_vc is
+entity in_vc is
 
   port (
     clk               : in  std_logic;
@@ -13,9 +13,9 @@ entity sislab_in_vc is
     data_out0         : out std_logic_vector(33 downto 0);
     data_out1         : out std_logic_vector(33 downto 0));
 
-end sislab_in_vc;
+end in_vc;
 
-architecture rtl of sislab_in_vc is
+architecture rtl of in_vc is
 
   signal data_out0_wire : std_logic_vector(33 downto 0);
   signal data_out1_wire : std_logic_vector(33 downto 0);

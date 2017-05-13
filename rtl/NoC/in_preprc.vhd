@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_in_preprc is
+entity in_preprc is
 
   port (
     data_in  : in  std_logic_vector(33 downto 0);
@@ -10,17 +10,17 @@ entity sislab_in_preprc is
     bop_net  : out std_logic;
     eop_net  : out std_logic);
 
-end sislab_in_preprc;
+end in_preprc;
 
-architecture rtl of sislab_in_preprc is
+architecture rtl of in_preprc is
 
 begin  -- rtl
   -- purpose: base on BOP we shift bit in header flit and output dir bits
   -- type   : combinational
   -- inputs : data_in
   -- outputs: data_net, dir_net, bop_net
-  sislab_in_preprc : process (data_in)
-  begin  -- PROCESS sislab_in_preprc
+  in_preprc : process (data_in)
+  begin  -- PROCESS in_preprc
     case data_in(33) is
       when '1' =>
         data_net(33 downto 18) <= data_in(33 downto 18);
@@ -36,6 +36,6 @@ begin  -- rtl
         eop_net  <= '0';
       when others => null;
     end case;
-  end process sislab_in_preprc;
+  end process in_preprc;
 
 end rtl;

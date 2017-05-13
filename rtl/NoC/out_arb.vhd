@@ -1,8 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity sislab_out_arb is
-  
+entity out_arb is
+
   port (
     clk      : in  std_logic;                     -- System clock
     rst_n    : in  std_logic;                     -- Reset, negative active
@@ -20,9 +20,9 @@ entity sislab_out_arb is
     );
 
 
-end sislab_out_arb;
+end out_arb;
 
-architecture rtl of sislab_out_arb is
+architecture rtl of out_arb is
 
 --  SIGNAL mask_off0 : STD_LOGIC_VECTOR(3 DOWNTO 0);
 --  SIGNAL mask_off1 : STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -41,7 +41,7 @@ architecture rtl of sislab_out_arb is
   signal dir_in_ff  : std_logic_vector(1 downto 0);
   signal vc_in_ff   : std_logic_vector(1 downto 0);
   signal lock_in    : std_logic;
-  
+
 begin  -- rtl
 
   send_net0(0) <= send_in0(0);
@@ -106,7 +106,7 @@ begin  -- rtl
   -- purpose: rst_n
   -- type   : sequential
   -- inputs : clk, rst_n
-  -- outputs: 
+  -- outputs:
   store_routing_value : process (clk, rst_n)
   begin  -- PROCESS store_routing_value
     if rst_n = '0' then                 -- asynchronous reset (active low)
@@ -153,5 +153,5 @@ begin  -- rtl
       vc_in  <= vc_in_net;
     end if;
   end process select_routing;
-  
+
 end rtl;
